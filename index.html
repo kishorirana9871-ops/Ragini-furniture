@@ -1,66 +1,53 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RAGINI FURNITURE - Luxury Manufacturer</title>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; }
-    .hero { position: relative; height: 85vh; background: #222; color: #fff; }
-    .hero-content { position: relative; z-index: 2; padding: 20px; }
-    .hero h1 { font-size: 42px; margin: 0; color: #fff; }
-    .hero h2 { font-size: 22px; margin: 10px 0; }
-    .hero p { font-size: 20px; }
-    .btn { background: #FFD700; color: #000; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 10px; border-radius: 5px; font-weight: bold; }
-    .section { padding: 40px 20px; max-width: 1200px; margin: auto; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .card { border-radius: 15px; overflow: hidden; border: 1px solid #ddd; }
-    .card img { width: 100%; height: 300px; object-fit: cover; }
-    .card-body { padding: 15px; text-align: center; }
-    .price { color: #c00; font-weight: bold; font-size: 18px; }
-    .footer { background: #111; color: #fff; text-align: center; padding: 20px; }
-    .whatsapp { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAGINI FURNITURE - Pi Payment</title>
+<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+<script> Pi.init({ version: "2.0", sandbox: true }) </script>
+<style>
+body{background:#111;color:#fff;font-family:Arial;text-align:center;padding:20px}
+h1{font-size:38px;font-weight:900}
+.gold{color:#FFD700}
+.btn{background:#FFD700;color:#000;padding:15px 25px;border:none;border-radius:8px;font-weight:bold;font-size:18px;margin:10px;cursor:pointer}
+.box{background:#222;padding:20px;border-radius:10px;margin-top:20px}
+</style>
 </head>
 <body>
+<h1>RAGINI<br>FURNITURE</h1>
+<h3 class="gold">DELHI KA NO.1 LUXURY SOFA MANUFACTURER</h3>
+<p>Direct Factory Se - Chhattarpur, Delhi<br>Call: 8384091419 | 8700801078</p>
 
-  <div class="hero">
-    <div class="hero-content">
-      <h1>RAGINI FURNITURE</h1>
-      <h2>DELHI KA NO.1 LUXURY SOFA MANUFACTURER</h2>
-      <p>Direct Factory Se - Chhatarpur, Delhi</p>
-      <p>Call: 8384091419 (Calling) | 8700801078</p>
-      <a class="btn" href="https://api.whatsapp.com/send?phone=918384091419">WhatsApp Us</a>
-      <a class="btn" href="tel:+918384091419">Call Now</a>
-    </div>
-  </div>
+<div class="box">
+<h3>🪑 Pi Se Furniture Kharido</h3>
+<p>Pi Network Se Payment Kare</p>
+<button class="btn" onclick="loginPi()"> Pi Login </button>
+<button class="btn" onclick="payPi()"> Pi Se Pay Kare (0.001 Pi)</button>
+<p id="status"></p>
+</div>
 
-  <div class="section">
-    <h2 style="text-align:center">HAMARE LUXURY PRODUCTS</h2>
-    <div class="grid">
-      <div class="card"><img src="1.jpg" alt="Sofa 1"></div>
-      <div class="card"><img src="2.jpg" alt="Sofa 2"></div>
-      <div class="card"><img src="6.jpg" alt="Sofa 3"></div>
-      <div class="card"><img src="4.jpg" alt="Sofa 4"></div>
-      <div class="card"><img src="5.jpg" alt="Sofa 5"></div>
-      <div class="card"><img src="3.jpg" alt="Sofa 6"></div>
-    </div>
-  </div>
+<a href="https://wa.me/918384091419"><button class="btn">WhatsApp Us</button></a>
+<a href="tel:8384091419"><button class="btn">Call Now</button></a>
 
-  <div class="footer">
-    <h3>RAGINI FURNITURE - CHHATARPUR, DELHI</h3>
-    <p>Factory Address: Chhatarpur, New Delhi</p>
-    <p>Call: 8384091419 (Calling) | WhatsApp: 8700801078</p>
-    <p>Google Par 4.8 Star Rating - 1000+ Happy Customers</p>
-  </div>
-
-  <a class="whatsapp" href="https://wa.me/918384091419">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="50" alt="WhatsApp">
-  </a>
-
+<script>
+function loginPi(){
+ Pi.authenticate(['username','payments'], function(p){ 
+   document.getElementById('status').innerText = "Welcome " + p.user.username;
+ });
+}
+function payPi(){
+ Pi.createPayment({
+   amount: 0.001,
+   memo: "Ragini Furniture Sofa Booking",
+   metadata: { product: "Luxury Sofa" }
+ }, {
+   onReadyForServerApproval: function(id){ console.log(id); },
+   onReadyForServerCompletion: function(id, tx){ alert("Payment Success!"); },
+   onCancel: function(id){ alert("Cancelled"); },
+   onError: function(e){ alert("Error: "+e); }
+ });
+}
+</script>
 </body>
 </html>
